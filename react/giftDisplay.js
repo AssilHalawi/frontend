@@ -13,7 +13,7 @@ function GiftDisplay({ userId }) {
 
     // side effect: load gifts for the given user id
     useEffect(() => {
-        fetch(`http://backend-production-aaba.up.railway.app/api/user-gifts/${userId}`)
+        fetch(`https://backend-production-aaba.up.railway.app/api/user-gifts/${userId}`)
             .then(res => res.json())
             .then(data => {
                 setGifts(data);

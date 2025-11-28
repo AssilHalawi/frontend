@@ -41,7 +41,7 @@
   <!-- fetch and display categories from the backend from the categories table-->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      fetch("http://backend-production-aaba.up.railway.app/api/categories")
+      fetch("https://backend-production-aaba.up.railway.app/api/categories")
         .then(res => res.json())
         .then(categories => {
           displayCategories(categories);

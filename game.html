@@ -85,7 +85,7 @@
       }
 
       // fetch questions from backend based on the category the user selected (they are linked in the database with foreign keys)
-      fetch(`http://backend-production-aaba.up.railway.app/api/questions/${category}`)
+      fetch(`https://backend-production-aaba.up.railway.app/api/questions/${category}`)
         .then(res => res.json())
         .then(data => { //data now has all the questions from the backend for that category
           console.log("Loaded backend questions:", data);

@@ -135,7 +135,7 @@
       start HTTP request to backend API endpoint /api/progress/update on port 5000
       use the fetch API to send data
       */
-      fetch("http://backend-production-aaba.up.railway.app/api/progress/update", {
+      fetch("https://backend-production-aaba.up.railway.app/api/progress/update", {
         method: "POST", // send data to update 
         headers: { "Content-Type": "application/json" },  //body of text is JSON
         body: JSON.stringify({  //json body that will be sent to backend, JSON.stringify converts a JS object into a JSON string

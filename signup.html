@@ -82,7 +82,7 @@
       }
 
       // Send signup request to backend
-      fetch("http://backend-production-aaba.up.railway.app/api/auth/register", {
+      fetch("https://backend-production-aaba.up.railway.app/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
