@@ -15,7 +15,7 @@ const Leaderboard = () => {
 
   // Load leaderboard from server once on mount
   React.useEffect(() => {
-    fetch("http://localhost:5000/api/leaderboard")
+    fetch("http://backend-production-aaba.up.railway.app/api/leaderboard")
       .then(res => res.json())
       .then(data => {
         // sort by total XP descending

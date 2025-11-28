@@ -221,7 +221,7 @@
 
         // CHANGED SINCE PROJECT1, CHANGES IN README FILE
         // send info to backend to deduct total_xp for this user
-        fetch(`http://localhost:5000/api/user_totals/deduct`, {
+        fetch(`http://backend-production-aaba.up.railway.app/api/user_totals/deduct`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ user_id: user.id, amount: cost, giftname: label })
@@ -251,9 +251,9 @@
          /questions => all questions (to determine total count)
       */
       Promise.all([
-        fetch(`http://localhost:5000/api/user_totals/${user.id}`).then(r => r.json()),
-        fetch(`http://localhost:5000/api/progress/${user.id}`).then(r => r.json()),
-        fetch(`http://localhost:5000/api/questions`).then(r => r.json())
+        fetch(`http://backend-production-aaba.up.railway.app/api/user_totals/${user.id}`).then(r => r.json()),
+        fetch(`http://backend-production-aaba.up.railway.app/api/progress/${user.id}`).then(r => r.json()),
+        fetch(`http://backend-production-aaba.up.railway.app/api/questions`).then(r => r.json())
       ])
         .then(([totals, progress, questions]) => {
           const xpVal = Number(totals.total_xp ?? totals.totalXp ?? 0) || 0;
