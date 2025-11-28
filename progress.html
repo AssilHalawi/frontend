@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress - STEAM Quest</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">STEAM Quest</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+          <li class="nav-item"><a class="nav-link active" href="progress.html">Progress</a></li>
+          <li class="nav-item"><a class="nav-link" href="leaderboard.html">Leaderboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="title-main">🌟 Your Progress</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="progress-section py-5">
+    <div class="container">
+      <div id="completionMessage" class="completion-msg d-none text-center mb-4">
+        <!-- Completion message will be injected here when user finishes all questions -->
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+          <div class="progress-card">
+
+            <div class="progress-header">
+              <h2><i class="fas fa-chart-line"></i> Your Statistics</h2>
+              <p>Track your journey through the STEAM realms</p>
+            </div>
+
+            <div class="progress-stats">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="xp">0</h3>
+                  <p>Total XP</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="level">1</h3>
+                  <p>Current Level</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="completed">0</h3>
+                  <p>Questions Completed</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gift-section">
+              <div class="gift-header">
+                <h3><i class="fas fa-gift"></i> Redeem Gifts</h3>
+                <p>Spend your hard-earned XP on special gifts</p>
+              </div>
+
+              <div class="accordion" id="giftAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="giftHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#giftCollapse" aria-expanded="false" aria-controls="giftCollapse">
+                      <i class="fas fa-gift me-2"></i> Browse Gift Collection
+                    </button>
+                  </h2>
+
+                  <div id="giftCollapse" class="accordion-collapse collapse"
+                    data-bs-parent="#giftAccordion" aria-labelledby="giftHeading">
+
+                    <div class="accordion-body">
+                      <div id="giftMessage" class="gift-status gift-status--neutral">
+                        Choose a gift and spend XP to redeem it.
+                      </div>
+                      <div id="giftGrid" class="gift-grid"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- fixed array of all the gifts the user can redeem -->
+  <script>
+    const gifts = [
+      { emoji: "🌹", label: "Rose", xp: 10 },
+      { emoji: "📚", label: "Book of Wisdom", xp: 20 },
+      { emoji: "💎", label: "Crown Jewel", xp: 30 },
+      { emoji: "🎨", label: "Portrait Painting", xp: 35 },
+      { emoji: "🍫", label: "Box of Chocolates", xp: 15 },
+      { emoji: "🎻", label: "Private Concert", xp: 40 },
+      { emoji: "🗺️", label: "Map to Hidden Realm", xp: 45 },
+      { emoji: "🧵", label: "Royal Dress", xp: 50 },
+      { emoji: "🐉", label: "Baby Dragon", xp: 60 },
+      { emoji: "🏰", label: "Miniature Castle", xp: 70 },
+      { emoji: "🌌", label: "Star Naming", xp: 80 },
+      { emoji: "🧪", label: "Potion of Love", xp: 25 },
+      { emoji: "🎠", label: "Magic Carousel Ride", xp: 90 },
+      { emoji: "🚁", label: "Sky Tour", xp: 100 },
+      { emoji: "🐎", label: "Royal Steed", xp: 85 },
+      { emoji: "💌", label: "Handwritten Poem", xp: 5 },
+      { emoji: "🍓", label: "Strawberry Picnic", xp: 20 },
+      { emoji: "🎁", label: "Mystery Chest", xp: 75 },
+      { emoji: "🧸", label: "Stuffed Unicorn", xp: 30 },
+      { emoji: "🌠", label: "Meteor Wish", xp: 120 }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("steam.user")); //read the logged-in user data from localStorage and convert it from JSON to a JS object
+
+      if (!user) {
+        alert("You must log in first.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      //these variables point to DOM elements (XP text, Level, Completed count, gift grid container ...)
+      const xpEl = document.getElementById("xp");
+      const levelEl = document.getElementById("level");
+      const completedEl = document.getElementById("completed");
+      const giftGrid = document.getElementById("giftGrid");
+      const giftMessage = document.getElementById("giftMessage");
+
+      if (!xpEl || !levelEl || !completedEl || !giftGrid || !giftMessage) { //if one element is missing stop to avoid errors
+        console.error("Missing gift section elements");
+        return;
+      }
+
+      let currentXp = 0; //this value holds the current XP of the user, it will be updated from the backend
+
+      const updateXpDisplay = xp => {
+        currentXp = xp; //save new XP value
+        xpEl.textContent = xp;  //update XP text on page
+        renderGifts();  //re-renders the list of gifts (so disabled/enabled cards refresh)
+      };
+
+      const renderGifts = () => { //disables/enables gift cards based on current XP
+        giftGrid.innerHTML = gifts.map(gift => `
+          <article class="gift-card ${currentXp < gift.xp ? 'gift-card--disabled' : ''}" 
+                   data-cost="${gift.xp}" data-label="${gift.label}">
+            <div class="gift-emoji">${gift.emoji}</div>
+            <div class="gift-label">${gift.label}</div>
+            <div class="gift-xp">${gift.xp} XP</div>
+          </article>
+        `).join("");
+      };
+
+      const setMessage = (text, type = "neutral") => {  //when a user buys a gift or an error occurs, a message is shown
+        giftMessage.textContent = text;
+        giftMessage.className = `gift-status gift-status--${type}`;
+      };
+
+      giftGrid.addEventListener("click", e => { //handle gift card clicks
+        const target = e.target.closest(".gift-card");
+        if (!target || target.classList.contains("gift-card--disabled")) return;
+
+        const cost = Number(target.dataset.cost);
+        const label = target.dataset.label;
+
+        if (isNaN(cost) || !label) return;
+
+        if (currentXp < cost) {
+          setMessage(`You need ${cost - currentXp} more XP to buy ${label}.`, "error");
+          return;
+        }
+
+        // CHANGED SINCE PROJECT1, CHANGES IN README FILE
+        // send info to backend to deduct total_xp for this user
+        fetch(`http://localhost:5000/api/user_totals/deduct`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: user.id, amount: cost, giftname: label })
+        })
+        .then(res => {  //if backend returns an error, convert it to a rejected promise
+          if (!res.ok) return res.json().then(j => Promise.reject(j));
+          return res.json();
+        })
+        .then(result => {
+          // update UI from server's totals
+          const newXp = Number(result.totals.total_xp || 0);
+          currentXp = newXp;
+          xpEl.textContent = currentXp;
+          setMessage(`You bought ${label}! XP reduced by ${cost}.`, "success");
+          renderGifts();
+        })
+        .catch(err => {
+          console.error('Gift purchase error:', err);
+          const msg = err && err.message ? err.message : 'Unable to process purchase';
+          setMessage(msg === 'Insufficient XP' ? `You need ${cost - currentXp} more XP to buy ${label}.` : msg, 'error');
+        });
+      });
+
+      /* Runs three API calls:
+         /user_totals => XP and completed
+         /progress => level
+         /questions => all questions (to determine total count)
+      */
+      Promise.all([
+        fetch(`http://localhost:5000/api/user_totals/${user.id}`).then(r => r.json()),
+        fetch(`http://localhost:5000/api/progress/${user.id}`).then(r => r.json()),
+        fetch(`http://localhost:5000/api/questions`).then(r => r.json())
+      ])
+        .then(([totals, progress, questions]) => {
+          const xpVal = Number(totals.total_xp ?? totals.totalXp ?? 0) || 0;
+          const completedVal = Number(totals.total_completed ?? totals.totalCompleted ?? 0) || 0;
+          const levelVal = Number(progress.level) || 1;
+          const totalQuestions = Array.isArray(questions) ? questions.length : (questions?.length || 0);
+
+          updateXpDisplay(xpVal);
+          levelEl.textContent = levelVal;
+          completedEl.textContent = completedVal;
+          setMessage(`You have ${xpVal} XP to spend on gifts.`, "neutral");
+
+          // If the user has completed all available questions, show the completion phrase
+          try {
+            const completionEl = document.getElementById("completionMessage");
+            if (completionEl && totalQuestions > 0 && completedVal >= totalQuestions) {
+              completionEl.textContent = "You have finished the game! Thank you for helping the prince impress his princess";
+              completionEl.classList.remove("d-none");
+              completionEl.classList.add("completion-msg--visible");
+            }
+          } catch (e) {
+            console.error('Completion message error:', e);
+          }
+        })
+        .catch(err => {
+          console.error("Progress load error:", err);
+          setMessage("Unable to load progress data. Gifts are static until you log in again.", "error");
+        });
+    });
+  </script>
+
+  <div id="giftDisplayRoot" class="mt-4"></div>
+
+
+  <footer class="text-center py-3 mt-5 border-top">
+    <small>© 2025 STEAM Quest. Created by Assil Halawi.</small>
+  </footer>
+
+  <!-- IMPORTS -->
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- main js file -->
+  <script src="js/app.js"></script>
+
+  <!-- main react library that is needed to be loaded from the internet to understand React components and hooks and jsx -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- o	This library allows React to render components into my HTML page (so to insert components in HTML) -->
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- o	The browsers cannot read JSX directly, so Babel translates JSX into normal JS in the browser -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- babel will translate jsx from the ‘src’ file into js -->
+  <script type="text/babel" src="react/giftDisplay.js"></script>
+
+</body>
+</html>
+
